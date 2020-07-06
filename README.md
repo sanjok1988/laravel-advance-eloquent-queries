@@ -34,7 +34,6 @@
 if you want to select only some column then the code will be:
 
 > *note: you must include foreign key in select clause*.
-
    
 
     return App\User::select('id', 'name')->with(['posts'=>function ($q) {    
@@ -49,14 +48,14 @@ if you want to select only some column then the code will be:
 
     return App\User::select('id', 'name')    
     ->with(    
-    ['posts'=>function ($q) {    
-	    $q->select('id', 'title', 'description', 'user_id');    
-    }, 'profile'=>function ($q) {    
-	    $q->select('id', 'user_id');    
-    }],    
-    ['posts.comments'=>function ($q) {    
-	    $q->select('id', 'post_id');    
-    }]    
+        ['posts'=>function ($q) {    
+            $q->select('id', 'title', 'description', 'user_id');    
+        }, 'profile'=>function ($q) {    
+            $q->select('id', 'user_id');    
+        }],    
+        ['posts.comments'=>function ($q) {    
+            $q->select('id', 'post_id');    
+        }]    
     )    
     ->get();
  
@@ -93,7 +92,7 @@ OR,
     public function positions()    
     {
         return $this->belongsToMany(\App\Positions::class, 'user_positions', 'user_id','position_id')    
-    ->withPivot(['position_id', 'user_id']); //if you don't need pivot you can remove it
+            ->withPivot(['position_id', 'user_id']); //if you don't need pivot you can remove it
     
     }
 
@@ -198,10 +197,10 @@ The order will be incorrect. The right way is a little more complicated, using c
 
     $q->where(function ($query) {    
 	    $query->where('gender', 'Male')	    
-	    ->where('age', '>=', 18);	    
+	        ->where('age', '>=', 18);	    
 	 })->orWhere(function($query) {	    
 	    $query->where('gender', 'Female')	    
-	    ->where('age', '>=', 65);    
+	        ->where('age', '>=', 65);    
     })
 
    
